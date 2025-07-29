@@ -1,11 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from .models import Achievement, Cat, User
-
+from .permissions import OwnerOrReadOnly
 from .serializers import AchievementSerializer, CatSerializer, UserSerializer
 
 
 class CatViewSet(viewsets.ModelViewSet):
+    permission_classes = (OwnerOrReadOnly,)
     queryset = Cat.objects.all()
     serializer_class = CatSerializer
 
